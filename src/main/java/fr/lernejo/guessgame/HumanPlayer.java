@@ -20,9 +20,9 @@ public class HumanPlayer implements Player {
 
     @Override
     public void respond(boolean lowerOrGreater) {
-        if (!lowerOrGreater)
-            logger.log("Lower");
-        else
+        if (lowerOrGreater)
             logger.log("Greater");
+        else
+            logger.log("Lower");
     }
 }

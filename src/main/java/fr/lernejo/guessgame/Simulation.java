@@ -8,6 +8,7 @@ public class Simulation {
     private final Logger logger = LoggerFactory.getLogger("simulation");
     private final Player player;
     private long numberToGuess;
+    private boolean numberFound = false;
 
     public Simulation(Player player) {
         this.player = player;
@@ -22,8 +23,11 @@ public class Simulation {
      */
     private boolean nextRound() {
         long playerChoice = player.askNextGuess();
-        if (playerChoice == numberToGuess)
+        if (playerChoice == numberToGuess) {
+            numberFound = true;
             return true;
+        }
+
 
         if (playerChoice > numberToGuess)
             player.respond(false);
@@ -33,10 +37,26 @@ public class Simulation {
         return false;
     }
 
-    public void loopUntilPlayerSucceed() {
+    public void loopUntilPlayerSucceed(int maxIteration) {
         logger.log("Start of the simulation");
-        while (!nextRound())
+        long starting_date = System.currentTimeMillis();
+        int iteration = 0;
+        while (!numberFound)
+        {
             nextRound();
-        logger.log("Player won");
+            iteration++;
+
+            if (maxIteration == iteration) {
+                break;
+            }
+
+        }
+
+        if (numberFound)
+            logger.log("Player won");
+        else
+            logger.log("Max iteration, played lost");
+        long ending_date = System.currentTimeMillis();
+        logger.log("Time : " + (ending_date - starting_date) + "ms");
     }
 }
