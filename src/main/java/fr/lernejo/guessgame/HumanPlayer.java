@@ -15,6 +15,7 @@ public class HumanPlayer implements Player {
         logger.log("Enter a number :");
         int number = scanner.nextInt();
 
+        logger.log("Human guessed : " + number);
         return number;
     }
 

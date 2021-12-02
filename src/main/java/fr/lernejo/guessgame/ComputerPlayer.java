@@ -12,6 +12,7 @@ public class ComputerPlayer implements Player {
     @Override
     public long askNextGuess() {
         mid = (start + end) / 2;
+        logger.log("Computer guessed : " + mid);
         return mid;
     }
 
